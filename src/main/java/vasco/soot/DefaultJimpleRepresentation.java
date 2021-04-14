@@ -69,7 +69,7 @@ public class DefaultJimpleRepresentation implements ProgramRepresentation<SootMe
 	@Override
 	public DirectedGraph<Unit> getControlFlowGraph(SootMethod method) {
 		if (cfgCache.containsKey(method) == false) {
-			cfgCache.put(method, new ExceptionalUnitGraph(method.getActiveBody()));
+			cfgCache.put(method, new ExceptionalUnitGraph(method.retrieveActiveBody()));
 		}
 		return cfgCache.get(method);
 	}
