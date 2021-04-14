@@ -126,7 +126,11 @@ public abstract class ForwardInterProceduralAnalysis<M,N,A> extends InterProcedu
 						Context<M,N,A> targetContext = getContext(targetMethod, entryValue);
 						// If not, then set 'targetContext' to a new context with the given entry flow.
 						if (targetContext == null) {
-							targetContext = initContext(targetMethod, entryValue);
+							if (programRepresentation().isPhantomMethod(targetMethod)) {
+								targetContext = initContextForPhantomMethod(targetMethod, entryValue);
+							} else {
+								targetContext = initContext(targetMethod, entryValue);
+							}
 							if (verbose) {
 								System.out.println("[NEW] X" + currentContext + " -> X" + targetContext + " " + targetMethod + " ");
 								System.out.println("ENTRY(X" + targetContext + ") = " + entryValue);
